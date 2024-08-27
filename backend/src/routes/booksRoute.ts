@@ -1,24 +1,32 @@
 import { Router } from "express";
 import Book from "../models/bookModel";
+import { Request, Response } from "express";
 
 const router = Router();
 
-//create new book
-router.post("/", async (request, response) => {
+interface BookRequestBody {
+  title?: string;
+  author?: string;
+  publishYear?: number;
+}
+
+const validateBookRequestBody = (body: BookRequestBody): boolean => {
+  return body.title && body.author && body.publishYear ? true : false;
+};
+
+router.post("/", async (request: Request, response: Response) => {
   try {
-    if (
-      !request.body.title ||
-      !request.body.author ||
-      !request.body.publishYear
-    ) {
+    const { title, author, publishYear }: BookRequestBody = request.body;
+
+    if (validateBookRequestBody(request.body)) {
       response.status(400).send({
         message: "Send all require fields:title, author, publishYear",
       });
     }
     const newBook = {
-      title: request.body.title,
-      author: request.body.author,
-      publishYear: request.body.publishYear,
+      title: title,
+      author: author,
+      publishYear: publishYear,
     };
 
     const book = await Book.create(newBook);
@@ -29,8 +37,7 @@ router.post("/", async (request, response) => {
   }
 });
 
-// Route for Get All Books from database
-router.get("/", async (request, response) => {
+router.get("/", async (request: Request, response: Response) => {
   try {
     const books = await Book.find({});
     return response.status(200).json({
@@ -43,8 +50,7 @@ router.get("/", async (request, response) => {
   }
 });
 
-// Route for Get One Books from database by id
-router.get("/:id", async (request, response) => {
+router.get("/:id", async (request: Request, response: Response) => {
   try {
     const { id } = request.params;
     const book = await Book.findById(id);
@@ -55,14 +61,9 @@ router.get("/:id", async (request, response) => {
   }
 });
 
-// Route for Update a Book
-router.put("/:id", async (request, response) => {
+router.put("/:id", async (request: Request, response: Response) => {
   try {
-    if (
-      !request.body.title ||
-      !request.body.author ||
-      !request.body.publishYear
-    ) {
+    if (validateBookRequestBody(request.body)) {
       return response.status(400).send({
         message: "Send all required fields: title, author, publishYear",
       });
@@ -83,8 +84,7 @@ router.put("/:id", async (request, response) => {
   }
 });
 
-// Route for Delete a book
-router.delete("/:id", async (request, response) => {
+router.delete("/:id", async (request: Request, response: Response) => {
   try {
     const { id } = request.params;
 
