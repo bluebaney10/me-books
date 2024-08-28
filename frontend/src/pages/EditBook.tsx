@@ -2,36 +2,23 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import BackButton from "../components/BackButton";
 import Spinner from "../components/Spinner";
-import apiClient, { CanceledError } from "../services/api-client";
-
-interface Book {
-  _id: number;
-  title: string;
-  author: string;
-  publishYear: number;
-}
+import bookService, { Book } from "../services/book-service";
+import { CanceledError } from "../services/api-client";
 
 const EditBook = () => {
-  const [title, setTitle] = useState("");
-  const [author, setAuthor] = useState("");
-  const [publishYear, setPublishYear] = useState(0);
+  const [book, setBook] = useState<Book>();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const { id } = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
-    const controller = new AbortController();
+    const { request, cancel } = bookService.getBook(String(id));
 
     setLoading(true);
-    apiClient
-      .get<Book>(`books/${id}`, {
-        signal: controller.signal,
-      })
+    request
       .then((res) => {
-        setTitle(res.data.title);
-        setAuthor(res.data.author);
-        setPublishYear(res.data.publishYear);
+        setBook(res.data);
         setLoading(false);
       })
       .catch((err) => {
@@ -40,19 +27,20 @@ const EditBook = () => {
         setLoading(false);
       });
 
-    return () => controller.abort();
+    return () => cancel;
   }, []);
 
-  const handleEditBook = () => {
-    const data = {
-      title,
-      author,
-      publishYear,
-    };
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setBook({ ...book, [name]: value } as Pick<Book, keyof Book>);
+  };
+
+  const handleUpdateBook = () => {
+    if (!book) return;
 
     setLoading(true);
-    apiClient
-      .put<Book>(`books/${id}`, data)
+    bookService
+      .updateBook(book)
       .then(() => {
         setLoading(false);
         navigate("/");
@@ -76,8 +64,9 @@ const EditBook = () => {
           <span className="">Title</span>
           <input
             type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            name="title"
+            value={book?.title}
+            onChange={handleInputChange}
             className=""
           />
         </div>
@@ -85,8 +74,9 @@ const EditBook = () => {
           <span className="">Author</span>
           <input
             type="text"
-            value={author}
-            onChange={(e) => setAuthor(e.target.value)}
+            name="author"
+            value={book?.author}
+            onChange={handleInputChange}
             className=""
           />
         </div>
@@ -94,14 +84,15 @@ const EditBook = () => {
           <span className="">PublishYear</span>
           <input
             type="text"
-            value={publishYear}
-            onChange={(e) => setPublishYear(Number(e.target.value))}
+            name="publishYear"
+            value={book?.publishYear}
+            onChange={handleInputChange}
             className=""
           />
         </div>
       </div>
-      <button className="" onClick={handleEditBook}>
-        Save
+      <button className="" onClick={handleUpdateBook}>
+        Update
       </button>
     </>
   );

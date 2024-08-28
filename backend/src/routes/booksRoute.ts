@@ -11,7 +11,7 @@ interface BookRequestBody {
 }
 
 const validateBookRequestBody = (body: BookRequestBody): boolean => {
-  return body.title && body.author && body.publishYear ? true : false;
+  return body.title && body.author ? true : false;
 };
 
 router.post("/", async (request: Request, response: Response) => {

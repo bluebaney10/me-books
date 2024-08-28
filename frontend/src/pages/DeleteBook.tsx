@@ -2,7 +2,8 @@ import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import BackButton from "../components/BackButton";
 import Spinner from "../components/Spinner";
-import apiClient, { CanceledError } from "../services/api-client";
+import bookService from "../services/book-service";
+import { CanceledError } from "../services/api-client";
 
 const DeleteBook = () => {
   const [loading, setLoading] = useState(false);
@@ -12,8 +13,8 @@ const DeleteBook = () => {
 
   const handleDeleteBook = () => {
     setLoading(true);
-    apiClient
-      .delete(`books/${id}`)
+    bookService
+      .deleteBook(String(id))
       .then(() => {
         setLoading(false);
         navigate("/");

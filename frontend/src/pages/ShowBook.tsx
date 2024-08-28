@@ -2,29 +2,21 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import BackButton from "../components/BackButton";
 import Spinner from "../components/Spinner";
-import apiClient, { CanceledError } from "../services/api-client";
-
-interface Book {
-  _id: number;
-  title: string;
-  author: string;
-  publishYear: number;
-}
+import bookService, { Book } from "../services/book-service";
+import { CanceledError } from "../services/api-client";
 
 const ShowBook = () => {
   const [books, setBooks] = useState<Book>();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
   const { id } = useParams();
 
   useEffect(() => {
-    const controller = new AbortController();
-
+    const { request, cancel } = bookService.getBook(String(id));
     setLoading(true);
-    apiClient
-      .get<Book>(`books/${id}`, {
-        signal: controller.signal,
-      })
+
+    request
       .then((res) => {
         setBooks(res.data);
         setLoading(false);
@@ -35,7 +27,7 @@ const ShowBook = () => {
         setLoading(false);
       });
 
-    return () => controller.abort();
+    return () => cancel;
   }, []);
 
   return (

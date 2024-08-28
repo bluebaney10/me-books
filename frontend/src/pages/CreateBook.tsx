@@ -2,32 +2,36 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import BackButton from "../components/BackButton";
 import Spinner from "../components/Spinner";
-import apiClient from "../services/api-client";
+import bookService, { Book } from "../services/book-service";
 
 const CreateBook = () => {
-  const [title, setTitle] = useState("");
-  const [author, setAuthor] = useState("");
-  const [publishYear, setPublishYear] = useState(0);
+  const [book, setBook] = useState<Book>({
+    title: "",
+    author: "",
+  });
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setBook({ ...book, [name]: value } as Pick<Book, keyof Book>);
+  };
+
   const handleCreateBook = () => {
-    const data = {
-      title,
-      author,
-      publishYear,
-    };
     setLoading(true);
-    apiClient
-      .post("books", data)
+    bookService
+      .createBook(book)
       .then(() => {
         setLoading(false);
         navigate("/");
+        console.log("success");
       })
       .catch((err) => {
         setError(err.message);
         setLoading(false);
+        console.log("error");
       });
   };
 
@@ -43,8 +47,9 @@ const CreateBook = () => {
           <span className="">Title</span>
           <input
             type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            name="title"
+            value={book?.title}
+            onChange={handleInputChange}
             className=""
           />
         </div>
@@ -52,8 +57,9 @@ const CreateBook = () => {
           <span className="">Author</span>
           <input
             type="text"
-            value={author}
-            onChange={(e) => setAuthor(e.target.value)}
+            name="author"
+            value={book?.author}
+            onChange={handleInputChange}
             className=""
           />
         </div>
@@ -61,8 +67,9 @@ const CreateBook = () => {
           <span className="">PublishYear</span>
           <input
             type="text"
-            value={publishYear}
-            onChange={(e) => setPublishYear(Number(e.target.value))}
+            name="publishYear"
+            value={book?.publishYear}
+            onChange={handleInputChange}
             className=""
           />
         </div>

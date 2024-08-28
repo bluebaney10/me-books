@@ -20,7 +20,6 @@ const bookSchema: Schema = new Schema(
     },
     publishYear: {
       type: Number,
-      required: true,
     },
   },
   {

@@ -1,13 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import apiClient, { CanceledError } from "../services/api-client";
-
-interface Book {
-  _id: number;
-  title: string;
-  author: string;
-  publishYear: number;
-}
+import bookService, { Book } from "../services/book-service";
+import { CanceledError } from "../services/api-client";
 
 const Home = () => {
   const [books, setBooks] = useState<Book[]>([]);
@@ -15,13 +9,10 @@ const Home = () => {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    const controller = new AbortController();
-
     setLoading(true);
-    apiClient
-      .get<Book[]>("/books", {
-        signal: controller.signal,
-      })
+    const { request, cancel } = bookService.getAllBooks();
+
+    request
       .then((res) => {
         setBooks(res.data);
         setLoading(false);
@@ -32,7 +23,7 @@ const Home = () => {
         setLoading(false);
       });
 
-    return () => controller.abort();
+    return () => cancel;
   }, []);
 
   return (
