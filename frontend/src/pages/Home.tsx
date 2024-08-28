@@ -1,6 +1,6 @@
-import axios, { CanceledError } from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import apiClient, { CanceledError } from "../services/api-client";
 
 interface Book {
   _id: number;
@@ -18,8 +18,8 @@ const Home = () => {
     const controller = new AbortController();
 
     setLoading(true);
-    axios
-      .get<Book[]>("http://localhost:3333/books", {
+    apiClient
+      .get<Book[]>("/books", {
         signal: controller.signal,
       })
       .then((res) => {

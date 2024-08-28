@@ -1,8 +1,8 @@
-import axios, { CanceledError } from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import BackButton from "../components/BackButton";
 import Spinner from "../components/Spinner";
+import apiClient, { CanceledError } from "../services/api-client";
 
 interface Book {
   _id: number;
@@ -24,8 +24,8 @@ const EditBook = () => {
     const controller = new AbortController();
 
     setLoading(true);
-    axios
-      .get<Book>(`http://localhost:3333/books/${id}`, {
+    apiClient
+      .get<Book>(`books/${id}`, {
         signal: controller.signal,
       })
       .then((res) => {
@@ -51,8 +51,8 @@ const EditBook = () => {
     };
 
     setLoading(true);
-    axios
-      .put<Book>(`http://localhost:3333/books/${id}`, data)
+    apiClient
+      .put<Book>(`books/${id}`, data)
       .then(() => {
         setLoading(false);
         navigate("/");
@@ -67,7 +67,7 @@ const EditBook = () => {
   return (
     <>
       <BackButton />
-      <h2>Create Book</h2>
+      <h2>Edit Book</h2>
       {error && <p className="text-danger">{error}</p>}
       {loading ? <Spinner /> : ""}
 

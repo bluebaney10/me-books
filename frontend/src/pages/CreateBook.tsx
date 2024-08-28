@@ -1,15 +1,8 @@
-import axios, { CanceledError } from "axios";
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import BackButton from "../components/BackButton";
 import Spinner from "../components/Spinner";
-
-interface Book {
-  _id: number;
-  title: string;
-  author: string;
-  publishYear: number;
-}
+import apiClient from "../services/api-client";
 
 const CreateBook = () => {
   const [title, setTitle] = useState("");
@@ -26,8 +19,8 @@ const CreateBook = () => {
       publishYear,
     };
     setLoading(true);
-    axios
-      .post("http://localhost:3333/books", data)
+    apiClient
+      .post("books", data)
       .then(() => {
         setLoading(false);
         navigate("/");

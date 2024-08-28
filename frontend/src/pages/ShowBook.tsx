@@ -1,8 +1,8 @@
-import axios, { CanceledError } from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import BackButton from "../components/BackButton";
 import Spinner from "../components/Spinner";
+import apiClient, { CanceledError } from "../services/api-client";
 
 interface Book {
   _id: number;
@@ -21,8 +21,8 @@ const ShowBook = () => {
     const controller = new AbortController();
 
     setLoading(true);
-    axios
-      .get<Book>(`http://localhost:3333/books/${id}`, {
+    apiClient
+      .get<Book>(`books/${id}`, {
         signal: controller.signal,
       })
       .then((res) => {

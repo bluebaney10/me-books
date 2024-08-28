@@ -1,8 +1,8 @@
-import axios from "axios";
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import BackButton from "../components/BackButton";
 import Spinner from "../components/Spinner";
+import apiClient, { CanceledError } from "../services/api-client";
 
 const DeleteBook = () => {
   const [loading, setLoading] = useState(false);
@@ -12,13 +12,14 @@ const DeleteBook = () => {
 
   const handleDeleteBook = () => {
     setLoading(true);
-    axios
-      .delete(`http://localhost:3333/books/${id}`)
+    apiClient
+      .delete(`books/${id}`)
       .then(() => {
         setLoading(false);
         navigate("/");
       })
       .catch((err) => {
+        if (err instanceof CanceledError) return;
         setLoading(false);
         setError(err.message);
       });
