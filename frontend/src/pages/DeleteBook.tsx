@@ -14,7 +14,7 @@ const DeleteBook = () => {
   const handleDeleteBook = () => {
     setLoading(true);
     bookService
-      .deleteBook(String(id))
+      .delete(String(id))
       .then(() => {
         setLoading(false);
         navigate("/");

@@ -10,7 +10,7 @@ const Home = () => {
 
   useEffect(() => {
     setLoading(true);
-    const { request, cancel } = bookService.getAllBooks();
+    const { request } = bookService.getAll<Book>();
 
     request
       .then((res) => {
@@ -22,8 +22,6 @@ const Home = () => {
         setError(err.message);
         setLoading(false);
       });
-
-    return () => cancel;
   }, []);
 
   return (

@@ -6,6 +6,7 @@ import bookService, { Book } from "../services/book-service";
 
 const CreateBook = () => {
   const [book, setBook] = useState<Book>({
+    _id: "",
     title: "",
     author: "",
   });
@@ -22,7 +23,7 @@ const CreateBook = () => {
   const handleCreateBook = () => {
     setLoading(true);
     bookService
-      .createBook(book)
+      .create(book)
       .then(() => {
         setLoading(false);
         navigate("/");

@@ -13,7 +13,7 @@ const EditBook = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const { request, cancel } = bookService.getBook(String(id));
+    const { request } = bookService.getItem<Book>(String(id));
 
     setLoading(true);
     request
@@ -26,8 +26,6 @@ const EditBook = () => {
         setError(err.message);
         setLoading(false);
       });
-
-    return () => cancel;
   }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,7 +38,7 @@ const EditBook = () => {
 
     setLoading(true);
     bookService
-      .updateBook(book)
+      .update(book)
       .then(() => {
         setLoading(false);
         navigate("/");

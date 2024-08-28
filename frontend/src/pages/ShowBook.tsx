@@ -13,7 +13,7 @@ const ShowBook = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    const { request, cancel } = bookService.getBook(String(id));
+    const { request } = bookService.getItem<Book>(String(id));
     setLoading(true);
 
     request
@@ -26,8 +26,6 @@ const ShowBook = () => {
         setError(err.message);
         setLoading(false);
       });
-
-    return () => cancel;
   }, []);
 
   return (
