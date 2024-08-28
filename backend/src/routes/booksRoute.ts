@@ -18,11 +18,12 @@ router.post("/", async (request: Request, response: Response) => {
   try {
     const { title, author, publishYear }: BookRequestBody = request.body;
 
-    if (validateBookRequestBody(request.body)) {
-      response.status(400).send({
+    if (!validateBookRequestBody(request.body)) {
+      return response.status(400).send({
         message: "Send all require fields:title, author, publishYear",
       });
     }
+
     const newBook = {
       title: title,
       author: author,
@@ -32,7 +33,6 @@ router.post("/", async (request: Request, response: Response) => {
     const book = await Book.create(newBook);
     return response.status(201).send(book);
   } catch (error) {
-    console.log(error.message);
     response.status(500).send({ message: error.message });
   }
 });
@@ -40,12 +40,8 @@ router.post("/", async (request: Request, response: Response) => {
 router.get("/", async (request: Request, response: Response) => {
   try {
     const books = await Book.find({});
-    return response.status(200).json({
-      count: books.length,
-      data: books,
-    });
+    return response.status(200).json(books);
   } catch (error) {
-    console.log(error.message);
     response.status(500).send({ message: error.message });
   }
 });
@@ -56,30 +52,25 @@ router.get("/:id", async (request: Request, response: Response) => {
     const book = await Book.findById(id);
     return response.status(200).json(book);
   } catch (error) {
-    console.log(error.message);
     response.status(500).send({ message: error.message });
   }
 });
 
 router.put("/:id", async (request: Request, response: Response) => {
   try {
-    if (validateBookRequestBody(request.body)) {
+    if (!validateBookRequestBody(request.body)) {
       return response.status(400).send({
         message: "Send all required fields: title, author, publishYear",
       });
     }
 
     const { id } = request.params;
-
     const result = await Book.findByIdAndUpdate(id, request.body);
-
     if (!result) {
       return response.status(404).json({ message: "Book not found" });
     }
-
     return response.status(200).send({ message: "Book updated successfully" });
   } catch (error) {
-    console.log(error.message);
     response.status(500).send({ message: error.message });
   }
 });
@@ -87,7 +78,6 @@ router.put("/:id", async (request: Request, response: Response) => {
 router.delete("/:id", async (request: Request, response: Response) => {
   try {
     const { id } = request.params;
-
     const result = await Book.findByIdAndDelete(id);
 
     if (!result) {
@@ -96,7 +86,6 @@ router.delete("/:id", async (request: Request, response: Response) => {
 
     return response.status(200).send({ message: "Book deleted successfully" });
   } catch (error) {
-    console.log(error.message);
     response.status(500).send({ message: error.message });
   }
 });
