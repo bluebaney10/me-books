@@ -1,28 +1,8 @@
-import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import bookService, { Book } from "../services/book-service";
-import { CanceledError } from "../services/api-client";
+import useBooks from "../hooks/useBooks";
 
 const Home = () => {
-  const [books, setBooks] = useState<Book[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-
-  useEffect(() => {
-    setLoading(true);
-    const { request } = bookService.getAll<Book>();
-
-    request
-      .then((res) => {
-        setBooks(res.data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        if (err instanceof CanceledError) return;
-        setError(err.message);
-        setLoading(false);
-      });
-  }, []);
+  const { books, error, loading } = useBooks();
 
   return (
     <>
