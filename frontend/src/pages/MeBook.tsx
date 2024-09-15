@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import useBooks from "../hooks/useBooks";
-import "../styles/pages/Home.css";
+import "../styles/pages/home.css";
 import { useState } from "react";
 import { Hilight } from "../components/Hilight";
 import { useAuth0 } from "@auth0/auth0-react";

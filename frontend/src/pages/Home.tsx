@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import useBooks from "../hooks/useBooks";
 import { useState } from "react";
 import { Hilight } from "../components/Hilight";
-import "../styles/pages/Home.css";
+import "../styles/pages/home.css";
 
 const Home = () => {
   const { books, error, loading } = useBooks();
