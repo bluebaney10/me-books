@@ -1,0 +1,44 @@
+header {
+  background-color: #fff;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+
+  .menu {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 80px;
+
+    .logo {
+      font-weight: 300;
+      font-size: 1.8em;
+      font-family: "Abril Fatface", serif;
+      color: var(--primary-text);
+    }
+
+    .user {
+      display: flex;
+      gap: 8px;
+
+      .bts {
+        display: flex;
+        gap: 8px;
+      }
+
+      .profile {
+        display: flex;
+        gap: 8px;
+
+        .image {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          overflow: hidden;
+
+          img {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}

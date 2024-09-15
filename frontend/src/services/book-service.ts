@@ -5,6 +5,12 @@ export interface Book {
   title: string;
   author: string;
   publishYear?: number;
+  summary?: string;
+  detail?: string;
+  imageUrl?: string;
+  videoUrl?: string;
+  themeColor?: string;
+  userCreated: string;
 }
 
 export default create("/books");

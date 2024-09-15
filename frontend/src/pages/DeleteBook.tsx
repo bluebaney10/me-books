@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import BackButton from "../components/BackButton";
+import ButtonBack from "../components/ButtonBack";
 import Spinner from "../components/Spinner";
 import bookService from "../services/book-service";
 import { CanceledError } from "../services/api-client";
+import { Hilight } from "../components/Hilight";
 
 const DeleteBook = () => {
   const [loading, setLoading] = useState(false);
@@ -17,7 +18,7 @@ const DeleteBook = () => {
       .delete(String(id))
       .then(() => {
         setLoading(false);
-        navigate("/");
+        navigate("/books/mebook");
       })
       .catch((err) => {
         if (err instanceof CanceledError) return;
@@ -28,17 +29,20 @@ const DeleteBook = () => {
 
   return (
     <>
-      <BackButton />
-      <h2>Delete Book</h2>
-      {error && <p className="text-danger">{error}</p>}
-      {loading ? <Spinner /> : ""}
-
-      <div className="">
-        <h3 className="">Are you sure you want to delete this book</h3>
-        <button className="" onClick={handleDeleteBook}>
-          Yes, Delete it
-        </button>
-      </div>
+      <Hilight title="Delete Your Book" />
+      <section className="page delete-book">
+        <div className="container">
+          <ButtonBack />
+          {error && <p className="text-danger">{error}</p>}
+          {loading ? <Spinner /> : ""}
+          <div className="content">
+            <h3 className="head">Are you sure you want to delete this book</h3>
+            <button className="bt-danger" onClick={handleDeleteBook}>
+              <span className="txt">Yes, Delete it</span>
+            </button>
+          </div>
+        </div>
+      </section>
     </>
   );
 };

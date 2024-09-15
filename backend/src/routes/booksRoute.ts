@@ -8,6 +8,13 @@ interface BookRequestBody {
   title?: string;
   author?: string;
   publishYear?: number;
+  image?: File;
+  imageUrl?: string;
+  videoUrl?: string;
+  summary?: string;
+  detail?: string;
+  themeColor?: string;
+  userCreated?: string;
 }
 
 const validateBookRequestBody = (body: BookRequestBody): boolean => {
@@ -16,7 +23,17 @@ const validateBookRequestBody = (body: BookRequestBody): boolean => {
 
 router.post("/", async (request: Request, response: Response) => {
   try {
-    const { title, author, publishYear }: BookRequestBody = request.body;
+    const {
+      title,
+      author,
+      publishYear,
+      imageUrl,
+      videoUrl,
+      summary,
+      detail,
+      themeColor,
+      userCreated,
+    }: BookRequestBody = request.body;
 
     if (!validateBookRequestBody(request.body)) {
       return response.status(400).send({
@@ -28,6 +45,12 @@ router.post("/", async (request: Request, response: Response) => {
       title: title,
       author: author,
       publishYear: publishYear,
+      imageUrl: imageUrl,
+      videoUrl: videoUrl,
+      summary: summary,
+      detail: detail,
+      themeColor: themeColor,
+      userCreated: userCreated,
     };
 
     const book = await Book.create(newBook);

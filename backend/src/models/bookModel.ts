@@ -4,6 +4,12 @@ interface IBook extends Document {
   title: string;
   author: string;
   publishYear: number;
+  imageUrl: string;
+  videoUrl: string;
+  summary: string;
+  detail: string;
+  themeColor: string;
+  userCreated: string;
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -20,6 +26,25 @@ const bookSchema: Schema = new Schema(
     },
     publishYear: {
       type: Number,
+    },
+    imageUrl: {
+      type: String,
+    },
+    videoUrl: {
+      type: String,
+    },
+    summary: {
+      type: String,
+    },
+    detail: {
+      type: String,
+    },
+    themeColor: {
+      type: String,
+    },
+    userCreated: {
+      type: String,
+      required: true,
     },
   },
   {

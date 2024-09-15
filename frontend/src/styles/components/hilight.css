@@ -1,0 +1,43 @@
+.hilight {
+  position: relative;
+  margin: 0 auto;
+  padding: 5em 1em;
+  color: #ffffff;
+  text-align: center;
+  overflow: hidden;
+  margin-bottom: 32px;
+
+  .title {
+    position: relative;
+    z-index: 2;
+    font-size: 42px;
+    line-height: 52px;
+    margin: 0;
+    font-weight: 300;
+  }
+
+  .fade {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    opacity: 1;
+    background: rgba(17, 28, 28, 0.35);
+  }
+  .bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+}

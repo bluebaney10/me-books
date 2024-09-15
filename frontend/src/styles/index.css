@@ -1,0 +1,86 @@
+@import url("https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap");
+
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --primary-button: #3baac4;
+  --primary-text: #64696a;
+  --alert-color: #d82747;
+  --success-color: #35caad;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  font-family: "Lato", Arial, sans-serif;
+}
+
+a {
+  color: #ddd;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+button {
+  all: unset;
+  cursor: pointer;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  padding: 0;
+  margin: 0;
+}
+
+h3,
+h4 {
+  font-weight: 400;
+}
+
+.container {
+  width: 100%;
+  max-width: 1680px;
+  margin: 0 auto;
+  padding: 0 128px;
+}
+
+.text-danger {
+  color: var(--alert-color);
+  opacity: 0;
+  transition: all 0.3s;
+
+  &.active {
+    opacity: 1;
+  }
+}
+
+.text-success {
+  color: var(--success-color);
+}
+
+.text-center {
+  width: 100%;
+  text-align: center;
+  display: block;
+}
+
+.pad-top-16 {
+  padding-top: 16px;
+}
+
+@media screen and (max-width: 1200px) {
+  .container {
+    padding: 0 32px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .container {
+    padding: 0 16px;
+  }
+}
