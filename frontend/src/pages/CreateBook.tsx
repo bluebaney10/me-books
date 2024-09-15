@@ -61,18 +61,13 @@ const CreateBook = () => {
     }
 
     setInvalid(validationErrors);
-    console.log("numOfError:", numOfError);
     if (numOfError != 0) {
       return;
     }
 
-    console.log("isAuthenticated:", isAuthenticated);
-    console.log("user:", user);
     if (isAuthenticated && user) {
-      console.log("set book");
       setBook({ ...book, userCreated: user.sub } as Pick<Book, keyof Book>);
     } else {
-      console.log("return");
       return;
     }
 
@@ -83,15 +78,11 @@ const CreateBook = () => {
         setLoading(false);
         setIsSuccess(true);
         navigate("/books/mebook");
-        console.log("success");
       })
       .catch((err) => {
         setError(err.message);
         setLoading(false);
-        console.log("fail");
       });
-
-    console.log("----------");
   };
 
   return (
