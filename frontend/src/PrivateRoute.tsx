@@ -33,8 +33,7 @@ import PopupLogin from "./components/PopupLogin";
 import { useNavigate } from "react-router-dom";
 
 interface PrivateRouteProps {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  component: React.ComponentType<any>;
+  component: React.ComponentType;
 }
 
 const PrivateRoute: React.FC<PrivateRouteProps> = ({
