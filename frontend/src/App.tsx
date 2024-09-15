@@ -16,22 +16,18 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/books/show/:id" element={<ShowBook />} />
-        <Route
-          path="/books/create"
-          element={<PrivateRoute component={CreateBook} />}
-        />
-        <Route
-          path="/books/mebook"
-          element={<PrivateRoute component={MeBook} />}
-        />
-        <Route
-          path="/books/update/:id"
-          element={<PrivateRoute component={UpdateBook} />}
-        />
-        <Route
-          path="/books/delete/:id"
-          element={<PrivateRoute component={DeleteBook} />}
-        />
+        <Route path="/" element={<PrivateRoute />}>
+          <Route path="/books/create" element={<CreateBook />} />
+        </Route>
+        <Route path="/" element={<PrivateRoute />}>
+          <Route path="/books/mebook" element={<MeBook />} />
+        </Route>
+        <Route path="/" element={<PrivateRoute />}>
+          <Route path="/books/update/:id" element={<UpdateBook />} />
+        </Route>
+        <Route path="/" element={<PrivateRoute />}>
+          <Route path="/books/delete/:id" element={<DeleteBook />} />
+        </Route>
       </Routes>
     </>
   );
