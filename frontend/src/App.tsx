@@ -4,10 +4,9 @@ import DeleteBook from "./pages/DeleteBook";
 import UpdateBook from "./pages/UpdateBook";
 import ShowBook from "./pages/ShowBook";
 import CreateBook from "./pages/CreateBook";
-
-import PrivateRoute from "./PrivateRoute";
 import MeBook from "./pages/MeBook";
 import Header from "./components/Header";
+//import PrivateRoute from "./PrivateRoute";
 
 const App = () => {
   return (
