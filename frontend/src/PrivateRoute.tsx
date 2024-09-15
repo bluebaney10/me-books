@@ -4,7 +4,7 @@ import PopupLogin from "./components/PopupLogin";
 import { useNavigate } from "react-router-dom";
 
 interface PrivateRouteProps {
-  component: React.ComponentType<any>;
+  component: React.ComponentType<unknown>;
 }
 
 const PrivateRoute: React.FC<PrivateRouteProps> = ({
