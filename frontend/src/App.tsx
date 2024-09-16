@@ -6,7 +6,7 @@ import ShowBook from "./pages/ShowBook";
 import CreateBook from "./pages/CreateBook";
 import MeBook from "./pages/MeBook";
 import Header from "./components/Header";
-//import PrivateRoute from "./PrivateRoute";
+import PrivateRoute from "./PrivateRoute";
 
 const App = () => {
   return (
@@ -15,11 +15,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/books/show/:id" element={<ShowBook />} />
-        <Route path="/books/create" element={<CreateBook />} />
-        <Route path="/books/mebook" element={<MeBook />} />
-        <Route path="/books/update/:id" element={<UpdateBook />} />
-        <Route path="/books/delete/:id" element={<DeleteBook />} />
-        {/*  <Route
+        <Route
           path="/books/create"
           element={<PrivateRoute component={CreateBook} />}
         />
@@ -34,7 +30,7 @@ const App = () => {
         <Route
           path="/books/delete/:id"
           element={<PrivateRoute component={DeleteBook} />}
-        /> */}
+        />
       </Routes>
     </>
   );

@@ -29,7 +29,7 @@ const Home = () => {
       <section className="home">
         <div className="container">
           {error && <p className="text-danger">{error}</p>}
-          {loading && <div className="text-center">Loadding...</div>}
+          {loading && <div className="text-center pad-top-16">Loadding...</div>}
           {books.length === 0 && (
             <span className="text-center">Book Empty !!!</span>
           )}
