@@ -45,7 +45,9 @@ const Header = () => {
                   Log Out
                 </button>
                 <div className="image">
-                  <img src={user?.picture} alt={user?.name} />
+                  <picture>
+                    <img src={user?.picture} alt={user?.name} />
+                  </picture>
                 </div>
               </div>
             )}

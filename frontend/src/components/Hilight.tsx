@@ -11,7 +11,9 @@ export const Hilight = ({ title }: Props) => {
       <h1 className="title">{title}</h1>
       <div className="fade"></div>
       <div className="bg">
-        <img src={coverBg} alt="" />
+        <picture>
+          <img src={coverBg} alt="" />
+        </picture>
       </div>
     </div>
   );

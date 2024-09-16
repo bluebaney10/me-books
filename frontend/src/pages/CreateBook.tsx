@@ -97,7 +97,9 @@ const CreateBook = () => {
           <div className="items">
             <div className="item">
               <div className="image">
-                <img src={coverBg} alt="" />
+                <picture>
+                  <img src={coverBg} alt="" />
+                </picture>
               </div>
               <div className="texts">
                 <div className="block title">
