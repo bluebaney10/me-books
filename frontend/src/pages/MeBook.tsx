@@ -34,7 +34,7 @@ const MeBook = () => {
           {loading && <div className="text-center pad-top-16">Loadding...</div>}
 
           {books.length === 0 && (
-            <span className="text-center">Book Empty !!!</span>
+            <span className="text-center pad-top-16">Book Empty !!!</span>
           )}
           <div className="items">
             {books
