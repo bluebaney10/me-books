@@ -33,7 +33,7 @@ const MeBook = () => {
           {error && <p className="text-danger">{error}</p>}
           {loading && <div className="text-center pad-top-16">Loadding...</div>}
 
-          {books.length === 0 && (
+          {!loading && books.length === 0 && (
             <span className="text-center pad-top-16">Book Empty !!!</span>
           )}
           <div className="items">
